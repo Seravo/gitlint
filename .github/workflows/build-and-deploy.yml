@@ -1,0 +1,72 @@
+---
+name: Build and deploy images
+on:
+  schedule:
+    # rebuild every 20th day of the month at 12:24 UTC
+    - cron: '24 12 20 * *'
+  push:
+    branches:
+      - main
+      - feature/**
+      - bugfix/**
+
+permissions:
+  contents: read
+  packages: write
+  actions: read
+
+jobs:
+  build-image:
+    name: Build image
+    runs-on: ubuntu-latest
+    env:
+      image: ghcr.io/seravo/gitlint
+    steps:
+      - id: refname
+        name: Convert git refname to valid Docker tag
+        run: echo "refname=$(echo "${{ github.ref_name }}" |sed 's/\//-/g')" >> $GITHUB_OUTPUT
+
+      - id: clone-repository
+        uses: actions/checkout@v2
+        name: Clone git repository
+
+      - id: docker-login
+        uses: Seravo/actions/docker-login@v1.15.0
+        name: Login to ghcr.io
+
+      # To speed up builds, try to use previously built image as cache source.
+      # However, skip this if we're running weekly scheduled build to ensure
+      # that we get latest APT versions at least once a week
+      - if: ${{ github.event_name != 'schedule' }}
+        name: Pull previously built image
+        id: docker-pull
+        uses: Seravo/actions/docker-pull-previous@v1.15.0
+        with:
+          image: "${{ env.image }}"
+
+      - id: docker-build
+        uses: Seravo/actions/docker-build@v1.15.0
+        name: Build image
+        with:
+          image: "${{ env.image }}"
+
+      - if: ${{ github.ref == 'refs/heads/main' }}
+        name: Push new image to production
+        id: docker-push-master
+        uses: Seravo/actions/docker-push@v1.15.0
+        with:
+          image: "${{ env.image }}"
+
+      - id: docker-tag-push-commit
+        name: Tag image with commit id
+        uses: Seravo/actions/docker-tag-and-push@v1.15.0
+        with:
+          source: "${{ env.image }}"
+          target: "${{ env.image }}:${{ github.sha }}"
+
+      - id: docker-tag-push-refname
+        name: Tag image with refname
+        uses: Seravo/actions/docker-tag-and-push@v1.15.0
+        with:
+          source: "${{ env.image }}"
+          target: "${{ env.image }}:${{ steps.refname.outputs.refname }}"
