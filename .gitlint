@@ -1,0 +1,29 @@
+[general]
+regex-style-search = True
+
+# [title-max-length]
+# line-length=50
+
+[title-min-length]
+min-length=8
+
+[title-must-not-contain-word]
+words=wip
+
+[body-max-line-length]
+line-length=72
+
+# [body-min-length]
+# min-length=5
+
+[body-match-regex]
+# Match Jira-style issue IDs
+regex=(Related|Closes): [A-Z]+[-][0-9]+$
+
+[author-valid-email]
+# Allow only @seravo.com
+regex=[^@]+@seravo.com
+
+[ignore-by-author-name]
+# Ignore commits from dependabot
+regex=(.*)dependabot(.*)

@@ -1,0 +1,21 @@
+---
+name: 'Lint git commits'
+description: 'Run linting for git commits using gitlint'
+
+inputs:
+  path:
+    description: 'Path to run the linting against (default: .)'
+    required: true
+    default: '.'
+  config_file:
+    description: Path to .gitlint file
+    default: '/config/gitlint'
+
+runs:
+  using: 'docker'
+  image: 'docker://ghcr.io/seravo/gitlint:v1.0.0'
+  args:
+    - '--config'
+    - ${{ inputs.config_file }}
+    - '--target'
+    - ${{ inputs.path }}
