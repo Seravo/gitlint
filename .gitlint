@@ -27,3 +27,8 @@ regex=[^@]+@seravo.com
 [ignore-by-author-name]
 # Ignore commits from dependabot
 regex=(.*)dependabot(.*)
+
+[ignore-by-body]
+# Ignore max length for links
+regex=^https?:\/\/
+ignore=body-max-line-length
