@@ -1,0 +1,27 @@
+---
+name: Run unittests
+
+on:
+  push:
+    branches:
+      - main
+      - feature/**
+      - bugfix/**
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        PYTHON_VERSION: ["3.12"]
+    steps:
+      - name: Checkout repository with submodules
+        uses: actions/checkout@v4
+
+      - name: Run tests
+        id: tests
+        uses: seravo/actions/pytest@v1.16.0
+        with:
+          python_version: ${{ matrix.PYTHON_VERSION }}
+          requirements_path: requirements.txt
+          dev_requirements_path: dev-requirements.txt

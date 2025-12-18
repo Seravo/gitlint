@@ -1,0 +1,22 @@
+---
+name: Check code formatting with Ruff
+
+on:
+  push:
+    branches:
+      - main
+      - feature/**
+      - bugfix/**
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Ruff
+        id: format
+        uses: seravo/actions/pyruff-format@v1.16.0
+        with:
+          dev_requirements_path: dev-requirements.txt

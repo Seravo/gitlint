@@ -13,4 +13,4 @@ jobs:
           ref: ${{ github.head_ref }}           
 
       - name: Execute git linting
-        uses: seravo/gitlint@v1.0.1
+        uses: seravo/gitlint@v1
