@@ -14,6 +14,7 @@ RUN useradd user && \
     mkdir -p /workdir && \
     mkdir -p /config
 
+COPY rules /gitlint-rules.d
 COPY .gitlint /config/gitlint
 COPY --chmod=0755 entrypoint.sh /entrypoint.sh
 

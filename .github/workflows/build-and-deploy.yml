@@ -31,7 +31,7 @@ jobs:
         name: Clone git repository
 
       - id: docker-login
-        uses: Seravo/actions/docker-login@v1.15.0
+        uses: seravo/actions/docker-login@v1.16.0
         name: Login to ghcr.io
 
       # To speed up builds, try to use previously built image as cache source.
@@ -40,12 +40,12 @@ jobs:
       - if: ${{ github.event_name != 'schedule' }}
         name: Pull previously built image
         id: docker-pull
-        uses: Seravo/actions/docker-pull-previous@v1.15.0
+        uses: seravo/actions/docker-pull-previous@v1.16.0
         with:
           image: "${{ env.image }}"
 
       - id: docker-build
-        uses: Seravo/actions/docker-build@v1.15.0
+        uses: seravo/actions/docker-build@v1.16.0
         name: Build image
         with:
           image: "${{ env.image }}"
@@ -53,20 +53,20 @@ jobs:
       - if: ${{ github.ref == 'refs/heads/main' }}
         name: Push new image to production
         id: docker-push-master
-        uses: Seravo/actions/docker-push@v1.15.0
+        uses: seravo/actions/docker-push@v1.16.0
         with:
           image: "${{ env.image }}"
 
       - id: docker-tag-push-commit
         name: Tag image with commit id
-        uses: Seravo/actions/docker-tag-and-push@v1.15.0
+        uses: seravo/actions/docker-tag-and-push@v1.16.0
         with:
           source: "${{ env.image }}"
           target: "${{ env.image }}:${{ github.sha }}"
 
       - id: docker-tag-push-refname
         name: Tag image with refname
-        uses: Seravo/actions/docker-tag-and-push@v1.15.0
+        uses: seravo/actions/docker-tag-and-push@v1.16.0
         with:
           source: "${{ env.image }}"
           target: "${{ env.image }}:${{ steps.refname.outputs.refname }}"

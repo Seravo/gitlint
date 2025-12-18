@@ -1,0 +1,4 @@
+coverage>=7.13
+pytest>=9.0
+ruff>=0.14
+gitlint

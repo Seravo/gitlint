@@ -1,5 +1,6 @@
 [general]
 regex-style-search = True
+extra-path=/gitlint-rules.d
 
 # [title-max-length]
 # line-length=50
