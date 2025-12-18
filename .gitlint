@@ -30,5 +30,5 @@ regex=(.*)dependabot(.*)
 
 [ignore-by-body]
 # Ignore max length for links
-regex=^https?:\/\/
+regex=^(|[A-Z][a-z]+: )https?:\/\/
 ignore=body-max-line-length
