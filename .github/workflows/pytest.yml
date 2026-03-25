@@ -16,11 +16,11 @@ jobs:
         PYTHON_VERSION: ["3.12"]
     steps:
       - name: Checkout repository with submodules
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Run tests
         id: tests
-        uses: seravo/actions/pytest@v1.16.0
+        uses: seravo/actions/pytest@v1.17.1
         with:
           python_version: ${{ matrix.PYTHON_VERSION }}
           requirements_path: requirements.txt

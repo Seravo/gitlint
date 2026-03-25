@@ -1,5 +1,5 @@
 ---
-name: 'Nitpick git commits'
+name: "Nitpick git commits"
 
 on: [push, pull_request]
 
@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
-          ref: ${{ github.head_ref }}           
+          ref: ${{ github.head_ref }}
 
       - name: Execute git linting
         uses: seravo/gitlint@v1

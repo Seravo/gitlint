@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Run Ruff
         id: format
-        uses: seravo/actions/pyruff-format@v1.16.0
+        uses: seravo/actions/pyruff-format@v1.17.1
         with:
           dev_requirements_path: dev-requirements.txt
