@@ -33,3 +33,7 @@ regex=(.*)dependabot(.*)
 # Ignore max length for links
 regex=^(|[A-Z][a-z]+: )https?:\/\/
 ignore=body-max-line-length
+
+[ignore-body-lines]
+# Ignore all lines that start with 'Co-Authored-By'
+regex=^Co-[Aa]uthored-[Bb]y 
