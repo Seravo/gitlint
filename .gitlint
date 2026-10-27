@@ -22,8 +22,8 @@ line-length=72
 regex=(Related|Closes): [A-Z]+[-][0-9]+$
 
 [author-valid-email]
-# Allow only @seravo.com
-regex=[^@]+@seravo.com
+# Allow @seravo.com and @missgroup.com
+regex=[^@]+@(seravo\.com|missgroup\.com)
 
 [ignore-by-author-name]
 # Ignore commits from dependabot
